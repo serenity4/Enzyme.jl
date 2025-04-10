@@ -266,7 +266,10 @@ Core.Compiler.may_compress(@nospecialize(::EnzymeInterpreter)) = true
 #      but as far as I understand Enzyme wants "always inlining, except special cased functions",
 #      so I guess we really don't want to discard sources?
 Core.Compiler.may_discard_trees(@nospecialize(::EnzymeInterpreter)) = false
-Core.Compiler.verbose_stmt_info(@nospecialize(::EnzymeInterpreter)) = false
+
+@static if isdefined(Core.Compiler, :verbose_stmt_info)
+    Core.Compiler.verbose_stmt_info(@nospecialize(::EnzymeInterpreter)) = false
+end
 
 Core.Compiler.method_table(@nospecialize(interp::EnzymeInterpreter)) = interp.method_table
 
